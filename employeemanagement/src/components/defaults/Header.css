@@ -1,0 +1,42 @@
+.header-container {
+  position: fixed;
+  width: 80%;
+  height: 12%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  background-color: var(--background--header);
+  color: var(--sidebar-color);
+  /* z-index: 1000; */
+  /* box-shadow: 2px 2px 2px 2px #4c4c4c4d; */
+}
+.profile-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.profile-section .avatar {
+  margin-right: 1rem;
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.heading {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Subheading (Name) */
+.subheading {
+  font-size: 1rem; /* 16px */
+  margin-top: 0.25rem;
+  font-weight: bolder;
+  margin-left: 1rem;
+}

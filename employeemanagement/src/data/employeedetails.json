@@ -1,0 +1,53 @@
+[
+  {
+    "employeeId": "E001",
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "john.doe@example.com",
+    "phoneNumber": "1234567890",
+    "position": "Manager",
+    "department": "Engineering",
+    "startDate": "2022-01-15",
+    "salary": "70000",
+    "status": "Active",
+    "address": "123 Main St, Springfield",
+    "emergencyContact": "Jane Doe - 9876543210",
+    "profilePicture": "https://via.placeholder.com/150",
+    "gender": "Male",
+    "dateOfBirth": "1990-03-25"
+  },
+  {
+    "employeeId": "E002",
+    "firstName": "Emma",
+    "lastName": "Smith",
+    "email": "emma.smith@example.com",
+    "phoneNumber": "2345678901",
+    "position": "Software Engineer",
+    "department": "Development",
+    "startDate": "2023-03-10",
+    "salary": "60000",
+    "status": "Active",
+    "address": "456 Elm St, Metropolis",
+    "emergencyContact": "Liam Smith - 8765432109",
+    "profilePicture": "https://via.placeholder.com/150",
+    "gender": "Female",
+    "dateOfBirth": "1995-08-15"
+  },
+  {
+    "employeeId": "E003",
+    "firstName": "Liam",
+    "lastName": "Brown",
+    "email": "liam.brown@example.com",
+    "phoneNumber": "3456789012",
+    "position": "HR Specialist",
+    "department": "Human Resources",
+    "startDate": "2021-06-20",
+    "salary": "50000",
+    "status": "Active",
+    "address": "789 Oak St, Gotham",
+    "emergencyContact": "Olivia Brown - 7654321098",
+    "profilePicture": "https://via.placeholder.com/150",
+    "gender": "Male",
+    "dateOfBirth": "1987-12-12"
+  }
+]
