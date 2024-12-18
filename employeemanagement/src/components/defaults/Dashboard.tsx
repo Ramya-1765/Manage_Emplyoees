@@ -2,6 +2,7 @@ import React from "react";
 import "@/components/screens/Home.css";
 import Sidebar from "./SidebarDefault";
 import Header from "./Header";
+import FindEmployee from "../screens/VeiwTab";
 
 const Dashboard: React.FC = () => {
   return (
@@ -14,7 +15,7 @@ const Dashboard: React.FC = () => {
           <Header />
         </div>
         <div className="flex-r-btm p-3">
-          <h1>Dash</h1>
+          <FindEmployee />
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // Define the Employee interface
 interface Employee {
@@ -22,6 +22,23 @@ interface Employee {
 function EmployeeList() {
   const [employees, setEmployees] = useState<Employee[]>([]);
   const [editingEmployee, setEditingEmployee] = useState<Employee | null>(null);
+  const [form, setForm] = useState<Employee>({
+    employee_id: 0,
+    first_name: "",
+    last_name: "",
+    email: "",
+    phone_number: "",
+    position: "",
+    department: "",
+    start_date: "",
+    salary: 0,
+    status: "",
+    address: "",
+    emergency_contact: "",
+    profile_picture: "",
+    gender: "",
+    date_of_birth: "",
+  });
 
   // Fetch employees from the backend
   useEffect(() => {
@@ -38,6 +55,7 @@ function EmployeeList() {
     );
     if (updatedEmployee) {
       setEditingEmployee(updatedEmployee);
+      setForm(updatedEmployee); // Set form to current employee data for editing
     }
   };
 
@@ -54,120 +72,229 @@ function EmployeeList() {
       .catch((error) => console.error("Error deleting employee:", error));
   };
 
-  // Handle form submission for updating employee
-  const handleSubmitUpdate = (event: React.FormEvent) => {
+  // Handle form submission for adding or updating employee
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    if (!editingEmployee) return;
+    const method = editingEmployee ? "PUT" : "POST";
+    const url = editingEmployee
+      ? `http://localhost:5010/api/employees/${editingEmployee.employee_id}`
+      : "http://localhost:5010/api/employees";
 
-    fetch(
-      `http://localhost:5010/api/employees/${editingEmployee.employee_id}`,
-      {
-        method: "PUT",
-        body: JSON.stringify(editingEmployee),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Employee updated", data);
-        setEmployees(
-          employees.map((emp) =>
-            emp.employee_id === editingEmployee.employee_id ? data : emp
-          )
-        );
-        setEditingEmployee(null);
-      })
-      .catch((error) => console.error("Error updating employee:", error));
+    const response = await fetch(url, {
+      method,
+      body: JSON.stringify(form),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const data = await response.json();
+    if (data) {
+      setEmployees((prev) =>
+        editingEmployee
+          ? prev.map((emp) =>
+              emp.employee_id === editingEmployee.employee_id ? data : emp
+            )
+          : [...prev, data]
+      );
+      setEditingEmployee(null);
+      setForm({
+        employee_id: 0,
+        first_name: "",
+        last_name: "",
+        email: "",
+        phone_number: "",
+        position: "",
+        department: "",
+        start_date: "",
+        salary: 0,
+        status: "",
+        address: "",
+        emergency_contact: "",
+        profile_picture: "",
+        gender: "",
+        date_of_birth: "",
+      });
+    }
+  };
+
+  // Handle form field change
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-8">
-      <h1 className="text-3xl font-bold mb-6 text-center">Employee Details</h1>
-      <div className="overflow-x-auto">
-        <table className="table-auto w-full border-collapse border border-gray-300">
-          <thead>
-            <tr className="bg-gray-200">
-              <th className="border px-4 py-2">ID</th>
-              <th className="border px-4 py-2">First Name</th>
-              <th className="border px-4 py-2">Last Name</th>
-              <th className="border px-4 py-2">Email</th>
-              <th className="border px-4 py-2">Position</th>
-              <th className="border px-4 py-2">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {employees.map((emp) => (
-              <tr key={emp.employee_id} className="text-center">
-                <td className="border px-4 py-2">{emp.employee_id}</td>
-                <td className="border px-4 py-2">{emp.first_name}</td>
-                <td className="border px-4 py-2">{emp.last_name}</td>
-                <td className="border px-4 py-2">{emp.email}</td>
-                <td className="border px-4 py-2">{emp.position}</td>
-                <td className="border px-4 py-2">
-                  {/* <button
-                    onClick={() => handleUpdateEmployee(emp.employee_id)}
-                    className="bg-blue-500 text-white px-4 py-2 rounded"
-                  >
-                    Edit
-                  </button> */}
-                  <button
-                    onClick={() => handleDeleteEmployee(emp.employee_id)}
-                    className="bg-red-500 text-white px-4 py-2 rounded ml-2"
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+    <div>
+      <h1>Employee Management</h1>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="number"
+          className="text-white"
+          name="employee_id"
+          value={form.employee_id}
+          onChange={handleChange}
+          placeholder="Employee ID"
+        />
+        <input
+          type="text"
+          className="text-white"
+          name="first_name"
+          value={form.first_name}
+          onChange={handleChange}
+          placeholder="First Name"
+        />
+        <input
+          type="text"
+          className="text-white"
+          name="last_name"
+          value={form.last_name}
+          onChange={handleChange}
+          placeholder="Last Name"
+        />
+        <input
+          type="email"
+          className="text-white"
+          name="email"
+          value={form.email}
+          onChange={handleChange}
+          placeholder="Email"
+        />
+        <input
+          type="text"
+          className="text-white"
+          name="phone_number"
+          value={form.phone_number}
+          onChange={handleChange}
+          placeholder="Phone Number"
+        />
+        <input
+          type="text"
+          className="text-white"
+          name="position"
+          value={form.position}
+          onChange={handleChange}
+          placeholder="Position"
+        />
+        <input
+          type="text"
+          className="text-white"
+          name="department"
+          value={form.department}
+          onChange={handleChange}
+          placeholder="Department"
+        />
+        <input
+          type="date"
+          className="text-white"
+          name="start_date"
+          value={form.start_date}
+          onChange={handleChange}
+          placeholder="Start Date"
+        />
+        <input
+          type="number"
+          className="text-white"
+          name="salary"
+          value={form.salary}
+          onChange={handleChange}
+          placeholder="Salary"
+        />
+        <input
+          type="text"
+          className="text-white"
+          name="status"
+          value={form.status}
+          onChange={handleChange}
+          placeholder="Status"
+        />
+        <input
+          type="text"
+          className="text-white"
+          name="address"
+          value={form.address}
+          onChange={handleChange}
+          placeholder="Address"
+        />
+        <input
+          type="text"
+          className="text-white"
+          name="emergency_contact"
+          value={form.emergency_contact}
+          onChange={handleChange}
+          placeholder="Emergency Contact"
+        />
+        <input
+          type="text"
+          className="text-white"
+          name="profile_picture"
+          value={form.profile_picture}
+          onChange={handleChange}
+          placeholder="Profile Picture URL"
+        />
+        <input
+          type="text"
+          className="text-white"
+          name="gender"
+          value={form.gender}
+          onChange={handleChange}
+          placeholder="Gender"
+        />
+        <input
+          type="date"
+          className="text-white"
+          name="date_of_birth"
+          value={form.date_of_birth}
+          onChange={handleChange}
+          placeholder="Date of Birth"
+        />
+        <button type="submit" className="text-white">
+          {editingEmployee ? "Update" : "Add"} Employee
+        </button>
+      </form>
 
-      {editingEmployee && (
-        <div className="mt-8 p-4 bg-white shadow-lg rounded">
-          <h2 className="text-2xl font-bold mb-4">Edit Employee</h2>
-          <form onSubmit={handleSubmitUpdate}>
-            {/* Form fields to edit employee details */}
-            <div className="mb-4">
-              <label className="block text-sm font-semibold">First Name</label>
-              <input
-                type="text"
-                className="w-full px-4 py-2 border rounded"
-                value={editingEmployee.first_name}
-                onChange={(e) =>
-                  setEditingEmployee({
-                    ...editingEmployee,
-                    first_name: e.target.value,
-                  })
-                }
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-sm font-semibold">Last Name</label>
-              <input
-                type="text"
-                className="w-full px-4 py-2 border rounded"
-                value={editingEmployee.last_name}
-                onChange={(e) =>
-                  setEditingEmployee({
-                    ...editingEmployee,
-                    last_name: e.target.value,
-                  })
-                }
-              />
-            </div>
-            {/* Add other fields similarly */}
-            <button
-              type="submit"
-              className="bg-blue-500 text-white px-6 py-2 rounded mt-4"
-            >
-              Update Employee
-            </button>
-          </form>
-        </div>
-      )}
+      <table>
+        <thead>
+          <tr>
+            <th>Employee ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Position</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {employees.map((emp) => (
+            <tr key={emp.employee_id}>
+              <td>{emp.employee_id}</td>
+              <td>{emp.first_name}</td>
+              <td>{emp.last_name}</td>
+              <td>{emp.email}</td>
+              <td>{emp.phone_number}</td>
+              <td>{emp.position}</td>
+              <td>
+                <button
+                  onClick={() => handleUpdateEmployee(emp.employee_id)}
+                  className="text-white"
+                >
+                  Edit
+                </button>
+                <button
+                  onClick={() => handleDeleteEmployee(emp.employee_id)}
+                  className="text-white"
+                >
+                  Delete
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
