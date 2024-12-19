@@ -148,10 +148,10 @@ const AddEmployeeTab = () => {
       <Card className="max-w-5xl mx-auto h-auto shadow-lg bg-[--sidebar-body] text-white">
         <CardHeader>
           <CardTitle className="text-2xl font-semibold">
-            Employee Details
+            View Employee Details
           </CardTitle>
           <CardDescription className="text-gray-400">
-            Add employee details with validation.
+            View and edit employee details.
           </CardDescription>
         </CardHeader>
         <CardContent>

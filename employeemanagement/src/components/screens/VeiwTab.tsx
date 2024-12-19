@@ -289,7 +289,13 @@ import React, { useState } from "react";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "../ui/card";
 import { FilePenLine } from "lucide-react";
 import { Save } from "lucide-react";
 // Define the Employee interface
@@ -419,8 +425,11 @@ function FindEmployee() {
       <Card className="max-w-5xl mx-auto h-auto shadow-lg bg-[--sidebar-body] text-white">
         <CardHeader>
           <CardTitle className="text-2xl font-semibold">
-            Employee Details
+            Add Employee Details
           </CardTitle>
+          <CardDescription className="text-gray-400">
+            Add employee details.
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="flex flex-row">
@@ -459,7 +468,7 @@ function FindEmployee() {
           {error && <p className="text-[15px] p-1 text-red-600">{error}</p>}
 
           <form>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-3">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-3">
               {Object.entries(employeeDetails).map(([key, value]) => (
                 <div key={key}>
                   <Label htmlFor={key}>
@@ -475,7 +484,7 @@ function FindEmployee() {
                     }
                     id={key}
                     name={key}
-                    className="text-black m-1 p-2 rounded"
+                    className="bg-gray-900 text-white"
                     value={value}
                     onChange={handleChange}
                     placeholder={key.replace(/_/g, " ")}
