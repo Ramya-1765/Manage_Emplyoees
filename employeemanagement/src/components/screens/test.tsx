@@ -133,7 +133,7 @@ function EmployeeList() {
       <form onSubmit={handleSubmit}>
         <input
           type="number"
-          className="text-white"
+          className="text-white m-1 p-2 rounded"
           name="employee_id"
           value={form.employee_id}
           onChange={handleChange}
@@ -141,7 +141,7 @@ function EmployeeList() {
         />
         <input
           type="text"
-          className="text-white"
+          className="text-white m-1 p-2 rounded"
           name="first_name"
           value={form.first_name}
           onChange={handleChange}
@@ -149,7 +149,7 @@ function EmployeeList() {
         />
         <input
           type="text"
-          className="text-white"
+          className="text-white m-1 p-2 rounded"
           name="last_name"
           value={form.last_name}
           onChange={handleChange}
@@ -157,7 +157,7 @@ function EmployeeList() {
         />
         <input
           type="email"
-          className="text-white"
+          className="text-white m-1 p-2 rounded"
           name="email"
           value={form.email}
           onChange={handleChange}
@@ -165,7 +165,7 @@ function EmployeeList() {
         />
         <input
           type="text"
-          className="text-white"
+          className="text-white m-1 p-2 rounded"
           name="phone_number"
           value={form.phone_number}
           onChange={handleChange}
@@ -173,7 +173,7 @@ function EmployeeList() {
         />
         <input
           type="text"
-          className="text-white"
+          className="text-white m-1 p-2 rounded"
           name="position"
           value={form.position}
           onChange={handleChange}
@@ -181,7 +181,7 @@ function EmployeeList() {
         />
         <input
           type="text"
-          className="text-white"
+          className="text-white m-1 p-2 rounded"
           name="department"
           value={form.department}
           onChange={handleChange}
@@ -189,7 +189,7 @@ function EmployeeList() {
         />
         <input
           type="date"
-          className="text-white"
+          className="text-white m-1 p-2 rounded"
           name="start_date"
           value={form.start_date}
           onChange={handleChange}
@@ -197,7 +197,7 @@ function EmployeeList() {
         />
         <input
           type="number"
-          className="text-white"
+          className="text-white m-1 p-2 rounded"
           name="salary"
           value={form.salary}
           onChange={handleChange}
@@ -205,7 +205,7 @@ function EmployeeList() {
         />
         <input
           type="text"
-          className="text-white"
+          className="text-white m-1 p-2 rounded"
           name="status"
           value={form.status}
           onChange={handleChange}
@@ -213,7 +213,7 @@ function EmployeeList() {
         />
         <input
           type="text"
-          className="text-white"
+          className="text-white m-1 p-2 rounded"
           name="address"
           value={form.address}
           onChange={handleChange}
@@ -221,7 +221,7 @@ function EmployeeList() {
         />
         <input
           type="text"
-          className="text-white"
+          className="text-white m-1 p-2 rounded"
           name="emergency_contact"
           value={form.emergency_contact}
           onChange={handleChange}
@@ -229,7 +229,7 @@ function EmployeeList() {
         />
         <input
           type="text"
-          className="text-white"
+          className="text-white m-1 p-2 rounded"
           name="profile_picture"
           value={form.profile_picture}
           onChange={handleChange}
@@ -237,7 +237,7 @@ function EmployeeList() {
         />
         <input
           type="text"
-          className="text-white"
+          className="text-white m-1 p-2 rounded"
           name="gender"
           value={form.gender}
           onChange={handleChange}
@@ -245,12 +245,13 @@ function EmployeeList() {
         />
         <input
           type="date"
-          className="text-white"
+          className="text-white m-1 p-2 rounded"
           name="date_of_birth"
           value={form.date_of_birth}
           onChange={handleChange}
           placeholder="Date of Birth"
         />
+        <br />
         <button type="submit" className="text-white">
           {editingEmployee ? "Update" : "Add"} Employee
         </button>
