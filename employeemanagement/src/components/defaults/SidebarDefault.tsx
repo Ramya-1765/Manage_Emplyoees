@@ -3,9 +3,9 @@ import "./Sidebar.css";
 
 const Sidebar = () => {
   const menuItems = [
-    { name: "Dashboard", path: "/dashboard" },
+    { name: "Add Employee", path: "/details" },
     { name: "Employee Database", path: "/add" },
-    { name: "View/update Employee", path: "/details" },
+    { name: "View/update Employee", path: "/dashboard" },
   ];
 
   return (

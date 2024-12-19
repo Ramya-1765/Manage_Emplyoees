@@ -1,0 +1,18 @@
+database connection:
+    user: "postgres",
+  host: "localhost",
+  database: "EmployeeManagement",
+  password: "1765",
+  port: 5432,
+
+Table Creation:
+    Table Name: employeesManage
+
+Example Insertion of data:
+
+    INSERT INTO employeesManage (
+    employee_id, first_name, last_name, email, phone_number, position, department, start_date, salary, 
+    status, address, emergency_contact, profile_picture, gender, date_of_birth
+    )
+    VALUES 
+    (1, 'Alice', 'Johnson', 'alice.johnson@example.com', '3456789012', 'Marketing Manager', 'Marketing', '2022-02-15', 80000, 'Active', '789 Pine St', '9876543210', 'https://via.placeholder.com/150', 'Female', '1991-07-19');

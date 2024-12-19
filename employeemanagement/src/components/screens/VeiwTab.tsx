@@ -290,7 +290,8 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
-
+import { FilePenLine } from "lucide-react";
+import { Save } from "lucide-react";
 // Define the Employee interface
 interface Employee {
   employee_id: string;
@@ -330,7 +331,8 @@ function FindEmployee() {
     date_of_birth: "",
   });
   const [error, setError] = useState<string>("");
-
+  const [isEditable, setIsEditable] = useState<boolean>(false);
+  const [msg, setMsg] = useState<string>("");
   // Handle the search button click to fetch employee details
   const handleSearch = () => {
     if (employeeId.trim() === "") {
@@ -363,6 +365,8 @@ function FindEmployee() {
         } else {
           setEmployeeDetails(data);
           setError("");
+          setMsg("");
+          setIsEditable(false);
         }
       })
       .catch((err) => {
@@ -378,6 +382,36 @@ function FindEmployee() {
       ...prev,
       [name]: value,
     }));
+  };
+
+  // Handle save button click to update employee details
+  const handleSave = () => {
+    fetch(
+      `http://localhost:5010/api/employees/${employeeDetails.employee_id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(employeeDetails),
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.error) {
+          setError("Error updating employee details");
+        } else {
+          setEmployeeDetails(data);
+          setError("");
+          setIsEditable(false);
+          console.log("Employee details updated successfully!");
+          setMsg("Employee details updated successfully!");
+        }
+      })
+      .catch((err) => {
+        console.error("Error updating employee:", err);
+        setError("An error occurred while updating employee details");
+      });
   };
 
   return (
@@ -399,14 +433,30 @@ function FindEmployee() {
             />
             <Button
               onClick={handleSearch}
-              variant="outline"
-              className="ml-3 text-black"
+              className="ml-3 text-white bg-blue-500"
             >
               Find Employee
             </Button>
+            <div className="flex justify-end ml-3">
+              {!isEditable ? (
+                <Button
+                  onClick={() => setIsEditable(true)}
+                  className="bg-yellow-500 text-white"
+                >
+                  <FilePenLine size={50} color="white" className="p-0" /> Edit
+                </Button>
+              ) : (
+                <Button
+                  onClick={handleSave}
+                  className="bg-green-500 text-white"
+                >
+                  <Save size={50} color="white" className="p-0" /> Save
+                </Button>
+              )}
+            </div>
           </div>
-
-          {error && <p style={{ color: "red" }}>{error}</p>}
+          {msg && <p className="text-[15px] p-1 text-green-400">{msg}</p>}
+          {error && <p className="text-[15px] p-1 text-red-600">{error}</p>}
 
           <form>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-3">
@@ -429,7 +479,7 @@ function FindEmployee() {
                     value={value}
                     onChange={handleChange}
                     placeholder={key.replace(/_/g, " ")}
-                    disabled={key === "employee_id"}
+                    disabled={!isEditable || key === "employee_id"}
                   />
                 </div>
               ))}
